@@ -19,12 +19,16 @@ example_board = [
 # Creating initial player team selection and starting welcome message
 def welcome():
     global players
-    print('Welcome to Tic Tac Toe!')
+    # Need to confirm that players select a valid team
     players['player1'] = input('Select your team (X or O): ').upper()
     if players['player1'] == 'X':
         players['player2'] = 'O'
-    else:
+    elif players['player1'] == 'O':
         players['player2'] = 'X'
+    else:
+        print('That is not a correct team!')
+        welcome()
+
 # As board is using empty strings to start, we can just display the rows and columns
 def display_board(board):
     print(f' {board[0][0]} | {board[0][1]} | {board[0][2]} ')
@@ -70,7 +74,8 @@ def check_win(player):
         print(f'{player} wins!')
         playing = False
 
-    
+
+print('Welcome to Tic Tac Toe!')
 welcome()
 print('Here is an example of the Tic Tac Toe Board:')
 display_board(example_board)
