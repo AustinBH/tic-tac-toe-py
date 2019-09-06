@@ -35,19 +35,32 @@ def display_board(board):
 # This function will allow the user to choose their move
 def get_user_choice(player):
     global board
-    choice = int(input(f'{player} what is your move?\n'))
-    # Need to add handling for if a user inputs a string that cannot be converted to int
-    if choice >= 1 and choice <= 3:
-        board[0][choice - 1] = player
-    elif choice >= 4 and choice <= 6:
-        board[1][choice%3 - 1] = player
-    elif choice >= 7 and choice <= 9:
-        board[2][choice%3 - 1] = player
-    else:
-        print('Choose a valid move')
-        get_user_choice(player)
-    check_win(player)
-    display_board(board)
+    global playing
+    while True:
+        choice = input(f'{player} what is your move?\n')
+        # Adding exit to game and while loop
+        if choice[0].lower() == 'q':
+            playing = False
+            break
+        # Adding error handling
+        try:
+            choice = int(choice)
+        except:
+            print("That's not a valid move!")
+        else:
+            # Need to add logic to prevent players overwriting each others moves
+            if choice >= 1 and choice <= 3:
+                board[0][choice - 1] = player
+            elif choice >= 4 and choice <= 6:
+                board[1][choice%3 - 1] = player
+            elif choice >= 7 and choice <= 9:
+                board[2][choice%3 - 1] = player
+            else:
+                print("That's not a valid move!")
+                get_user_choice(player)
+            check_win(player)
+            display_board(board)
+            break
 
 def check_win(player):
     global board
@@ -61,6 +74,7 @@ def check_win(player):
 welcome()
 print('Here is an example of the Tic Tac Toe Board:')
 display_board(example_board)
+# Need to redo this as it forces player 2 to play again when game is over
 while playing:
     get_user_choice(players['player1'])
     get_user_choice(players['player2'])
