@@ -41,7 +41,7 @@ def get_user_choice(player):
     global board
     global playing
     while True:
-        choice = input(f'{player} what is your move?\n')
+        choice = input(f'{player} what is your move? (1-9)\n')
         # Adding exit to game and while loop
         if choice[0].lower() == 'q':
             playing = False
@@ -49,7 +49,7 @@ def get_user_choice(player):
         # Adding error handling
         try:
             choice = int(choice)
-        except:
+        except ValueError:
             print("That's not a valid move!")
         else:
             # Need to add logic to prevent players overwriting each others moves
