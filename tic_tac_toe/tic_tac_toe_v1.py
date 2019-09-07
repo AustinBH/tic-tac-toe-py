@@ -102,3 +102,10 @@ else:
     while playing:
         get_user_choice(players['player2'])
         get_user_choice(players['player1'])
+
+print(f"{players['player1']['name']} won {players['player1']['wins']} times!")
+print(f"{players['player2']['name']} won {players['player2']['wins']} times!")
+if players['player1']['wins'] > players['player2']['wins']:
+    print('Player 1 Wins!')
+else:
+    print('Player 2 Wins!')
