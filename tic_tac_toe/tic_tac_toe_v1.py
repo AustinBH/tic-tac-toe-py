@@ -1,21 +1,14 @@
+import random
 # Initial variables for players and game state
 players = {
     'player1': '',
     'player2': ''
 }
 playing = True
-# Creating empty board to hold 3 rows
-board = [
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' ']
-]
+# Creating empty board to hold 9 elements
+board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # Creating example board to display where choices go
-example_board = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
+example_board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # Creating initial player team selection and starting welcome message
 def welcome():
     global players
@@ -31,11 +24,11 @@ def welcome():
 
 # As board is using empty strings to start, we can just display the rows and columns
 def display_board(board):
-    print(f' {board[0][0]} | {board[0][1]} | {board[0][2]} ')
+    print(f' {board[0]} | {board[1]} | {board[2]} ')
     print('-----------')
-    print(f' {board[1][0]} | {board[1][1]} | {board[1][2]} ')
+    print(f' {board[3]} | {board[4]} | {board[5]} ')
     print('-----------')
-    print(f' {board[2][0]} | {board[2][1]} | {board[2][2]} ')
+    print(f' {board[6]} | {board[7]} | {board[8]} ')
 # This function will allow the user to choose their move
 def get_user_choice(player):
     global board
@@ -52,13 +45,9 @@ def get_user_choice(player):
         except ValueError:
             print("That's not a valid move!")
         else:
-            # Need to add logic to prevent players overwriting each others moves
-            if choice >= 1 and choice <= 3:
-                board[0][choice - 1] = player
-            elif choice >= 4 and choice <= 6:
-                board[1][choice%3 - 1] = player
-            elif choice >= 7 and choice <= 9:
-                board[2][choice%3 - 1] = player
+            # Preventing overwriting previous moves, want to check on all rows of board
+            if board[choice -1] == ' ':
+                board[choice -1] = player
             else:
                 print("That's not a valid move!")
                 get_user_choice(player)
@@ -69,10 +58,24 @@ def get_user_choice(player):
 def check_win(player):
     global board
     global playing
-    # current version only checks horizontal + vertical, no diagonal check
-    if board[0][0] == player and (board[0][0] == board[1][0] and board[1][0] == board[2][0]) or (board[0][0] == board[0][1] and board[0][1] == board[0][2]):
+    # cannot win diagonally at this time
+    if player in board and (check_horizontal(board, player) or check_vertical(board, player) or check_diagonal(board, player)) :
         print(f'{player} wins!')
+        # update players dict so that you can track wins for both players
         playing = False
+
+# It works but needs to be dryed up this is very wet at the moment
+def check_horizontal(board, player):
+    if (board[0] == player and board[0] == board[1] and board[1] == board[2]) or (board[3] == player and board[3] == board[4] and board[4] == board[5]) or (board[6] == player and board[6] == board[7] and board[7] == board[8]):
+        return True
+
+def check_vertical(board, player):
+    if (board[0] == player and board[0] == board[3] and board[3] == board[6]) or (board[1] == player and board[1] == board[4] and board[4] == board[7]) or (board[2] == player and board[2] == board[5] and board[5] == board[8]):
+        return True
+
+def check_diagonal(board, player):
+    if (board[0] == player and board[0] == board[4] and board[4] == board[8]) or (board[2] == player and board[2] == board[5] and board[5] == board[6]):
+        return True
 
 
 print('Welcome to Tic Tac Toe!')
@@ -80,6 +83,11 @@ welcome()
 print('Here is an example of the Tic Tac Toe Board:')
 display_board(example_board)
 # Need to redo this as it forces player 2 to play again when game is over
-while playing:
-    get_user_choice(players['player1'])
-    get_user_choice(players['player2'])
+if random.randint(1,10) > 5:
+    while playing:
+        get_user_choice(players['player1'])
+        get_user_choice(players['player2'])
+else:
+    while playing:
+        get_user_choice(players['player2'])
+        get_user_choice(players['player1'])
