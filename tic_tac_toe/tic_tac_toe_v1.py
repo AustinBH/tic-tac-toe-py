@@ -1,4 +1,5 @@
 import random
+from termcolor import colored
 # Initial variables for players and game state
 # Added win tracker
 players = {
@@ -22,11 +23,11 @@ example_board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 def welcome():
     global players
     # Need to confirm that players select a valid team
-    players['player1']['team'] = input('Select your team (X or O): ').upper()
-    if players['player1']['team'] == 'X':
-        players['player2']['team'] = 'O'
-    elif players['player1']['team'] == 'O':
-        players['player2']['team'] = 'X'
+    players['player1']['team'] = colored(input('Select your team (X or O): ').upper(), 'green')
+    if players['player1']['team'] == colored('X', 'green'):
+        players['player2']['team'] = colored('0', 'cyan')
+    elif players['player1']['team'] == colored('O', 'green'):
+        players['player2']['team'] = colored('X', 'cyan')
     else:
         print('That is not a correct team!')
         welcome()
