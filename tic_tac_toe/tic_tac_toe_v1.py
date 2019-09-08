@@ -78,8 +78,14 @@ def check_win(player):
     global board
     global players
     # cannot win diagonally at this time
-    if player['team'] in board and (check_horizontal(board, player['team']) or check_vertical(
-            board, player['team']) or check_diagonal(board, player['team'])):
+    if player['team'] in board and (
+        check_horizontal(
+            board,
+            player['team']) or check_vertical(
+            board,
+            player['team']) or check_diagonal(
+                board,
+            player['team'])):
         print(f"{player['name']} wins!")
         # This logic can be made dryer as well
         if player['name'] == 'Player 1':
@@ -92,14 +98,18 @@ def check_win(player):
 
 
 def check_horizontal(board, player):
-    if (board[0] == player and board[0] == board[1] and board[1] == board[2]) or (board[3] == player and board[3] ==
-                                                                                  board[4] and board[4] == board[5]) or (board[6] == player and board[6] == board[7] and board[7] == board[8]):
+    if (
+        board[0] == player and board[0] == board[1] and board[1] == board[2]) or (
+        board[3] == player and board[3] == board[4] and board[4] == board[5]) or (
+            board[6] == player and board[6] == board[7] and board[7] == board[8]):
         return True
 
 
 def check_vertical(board, player):
-    if (board[0] == player and board[0] == board[3] and board[3] == board[6]) or (board[1] == player and board[1] ==
-                                                                                  board[4] and board[4] == board[7]) or (board[2] == player and board[2] == board[5] and board[5] == board[8]):
+    if (
+        board[0] == player and board[0] == board[3] and board[3] == board[6]) or (
+        board[1] == player and board[1] == board[4] and board[4] == board[7]) or (
+            board[2] == player and board[2] == board[5] and board[5] == board[8]):
         return True
 
 
