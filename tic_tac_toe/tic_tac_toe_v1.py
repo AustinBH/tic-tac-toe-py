@@ -20,10 +20,13 @@ board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # Creating example board to display where choices go
 example_board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # Creating initial player team selection and starting welcome message
+
+
 def welcome():
     global players
     # Need to confirm that players select a valid team
-    players['player1']['team'] = colored(input('Select your team (X or O): ').upper(), 'green')
+    players['player1']['team'] = colored(
+        input('Select your team (X or O): ').upper(), 'green')
     if players['player1']['team'] == colored('X', 'green'):
         players['player2']['team'] = colored('0', 'cyan')
     elif players['player1']['team'] == colored('O', 'green'):
@@ -31,7 +34,10 @@ def welcome():
     else:
         print('That is not a correct team!')
         welcome()
-# As board is using empty strings to start, we can just display the rows and columns
+# As board is using empty strings to start, we can just display the rows
+# and columns
+
+
 def display_board(board):
     print(f' {board[0]} | {board[1]} | {board[2]} ')
     print('-----------')
@@ -39,6 +45,8 @@ def display_board(board):
     print('-----------')
     print(f' {board[6]} | {board[7]} | {board[8]} ')
 # This function will allow the user to choose their move
+
+
 def get_user_choice(player):
     global board
     global playing
@@ -54,9 +62,10 @@ def get_user_choice(player):
         except ValueError:
             print("That's not a valid move!")
         else:
-            # Preventing overwriting previous moves, want to check on all rows of board
-            if board[choice -1] == ' ':
-                board[choice -1] = player['team']
+            # Preventing overwriting previous moves, want to check on all rows
+            # of board
+            if board[choice - 1] == ' ':
+                board[choice - 1] = player['team']
             else:
                 print("That's not a valid move!")
                 get_user_choice(player)
@@ -64,11 +73,13 @@ def get_user_choice(player):
             display_board(board)
             break
 
+
 def check_win(player):
     global board
     global players
     # cannot win diagonally at this time
-    if player['team'] in board and (check_horizontal(board, player['team']) or check_vertical(board, player['team']) or check_diagonal(board, player['team'])):
+    if player['team'] in board and (check_horizontal(board, player['team']) or check_vertical(
+            board, player['team']) or check_diagonal(board, player['team'])):
         print(f"{player['name']} wins!")
         # This logic can be made dryer as well
         if player['name'] == 'Player 1':
@@ -78,24 +89,32 @@ def check_win(player):
         print(f"{player['name']} now has {player['wins']} wins!")
         board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # It works but needs to be dryed up this is very wet at the moment
+
+
 def check_horizontal(board, player):
-    if (board[0] == player and board[0] == board[1] and board[1] == board[2]) or (board[3] == player and board[3] == board[4] and board[4] == board[5]) or (board[6] == player and board[6] == board[7] and board[7] == board[8]):
+    if (board[0] == player and board[0] == board[1] and board[1] == board[2]) or (board[3] == player and board[3] ==
+                                                                                  board[4] and board[4] == board[5]) or (board[6] == player and board[6] == board[7] and board[7] == board[8]):
         return True
+
 
 def check_vertical(board, player):
-    if (board[0] == player and board[0] == board[3] and board[3] == board[6]) or (board[1] == player and board[1] == board[4] and board[4] == board[7]) or (board[2] == player and board[2] == board[5] and board[5] == board[8]):
+    if (board[0] == player and board[0] == board[3] and board[3] == board[6]) or (board[1] == player and board[1] ==
+                                                                                  board[4] and board[4] == board[7]) or (board[2] == player and board[2] == board[5] and board[5] == board[8]):
         return True
 
+
 def check_diagonal(board, player):
-    if (board[0] == player and board[0] == board[4] and board[4] == board[8]) or (board[2] == player and board[2] == board[4] and board[4] == board[6]):
+    if (board[0] == player and board[0] == board[4] and board[4] == board[8]) or (
+            board[2] == player and board[2] == board[4] and board[4] == board[6]):
         return True
+
 
 print('Welcome to Tic Tac Toe!')
 welcome()
 print('Here is an example of the Tic Tac Toe Board:')
 display_board(example_board)
 # Need to redo this as it forces player 2 to play again when game is over
-if random.randint(1,10) > 5:
+if random.randint(1, 10) > 5:
     while playing:
         get_user_choice(players['player1'])
         get_user_choice(players['player2'])
