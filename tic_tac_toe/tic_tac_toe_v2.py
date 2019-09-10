@@ -3,7 +3,7 @@ from termcolor import colored
 #Adding players, both user and computer
 players = [
     {
-        'name': 'Player 1',
+        'name': 'User',
         'team': '',
         'wins': 0
     },
@@ -21,7 +21,7 @@ example_board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 def welcome():
     global players
-    # Need to confirm that players select a valid team
+    # Need to confirm that the player selects a valid team
     players[0]['team'] = colored(
         input('Select your team (X or O): ').upper(), 'green')
     if players[0]['team'] == colored('X', 'green'):
@@ -141,6 +141,6 @@ else:
 print(f"{players[0]['name']} won {players[0]['wins']} times!")
 print(f"{players[1]['name']} won {players[1]['wins']} times!")
 if players[0]['wins'] > players[1]['wins']:
-    print('Player 1 Wins!')
+    print('User wins!')
 else:
-    print('Computer Wins :( try again later...')
+    print('Computer wins :( try again later...')
