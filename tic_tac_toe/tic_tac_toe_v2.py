@@ -96,7 +96,7 @@ def check_win(player):
             player['team'])):
         print(f"{player['name']} wins!")
         # This logic can be made dryer as well
-        if player['name'] == 'Player 1':
+        if player['name'] == 'User':
             players[0]['wins'] += 1
         else:
             players[1]['wins'] += 1
